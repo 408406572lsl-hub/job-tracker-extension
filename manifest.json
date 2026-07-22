@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "岗位猎手 - 求职记录筛选助手",
+  "version": "1.5.56",
+  "author": "408406572lsl-hub",
+  "description": "招聘网站手动记录岗位、智能筛选、跨行业 AI 关系分析、岗位避坑、HR 回复、简历上传分析、申请表单自动填充。本地存储零隐私泄露。",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "contextMenus",
+    "notifications",
+    "alarms"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "岗位猎手 - 点击查看当前页岗位"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": ["lib/config.js", "lib/parser.js", "lib/diagnostic.js", "lib/filters.js", "lib/autoscan.js", "lib/form-filler.js", "lib/chat-helper.js", "content/content.js"],
+      "css": ["content/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/*", "lib/vendor/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
