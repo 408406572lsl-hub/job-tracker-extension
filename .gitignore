@@ -1,0 +1,25 @@
+# 依赖与构建产物
+node_modules/
+coverage/
+dist/
+build/
+*.log
+
+# 系统/编辑器
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# 密钥与敏感配置（切勿提交）
+*.key
+*.pem
+.env
+.env.*
+*.local
+
+# 工作区数据
+.workbuddy/
+
+# 打包交付物（按需保留或忽略）
+*.zip
