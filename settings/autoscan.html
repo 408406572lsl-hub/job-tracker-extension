@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>岗位猎手 - 自动扫描设置</title>
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <header class="topbar">
+    <span class="logo-icon">🤖</span>
+    <h1>自动扫描设置</h1>
+    <button id="btnBack" class="btn btn-outline">返回管理面板</button>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2 class="card-title">定时自动扫描（已停用）</h2>
+      <p class="card-hint">当前版本已停用「定时自动扫描」：插件不会在打开网页时自动扫描。所有扫描均需手动触发——点击下方「立即扫描一轮」，或在 BOSS直聘 列表页使用浮动「扫描本轮」按钮。需要你已在浏览器登录 BOSS直聘(复用你的登录态)。</p>
+
+      <div class="form-row">
+        <label for="enabled">启用自动扫描</label>
+        <input type="checkbox" id="enabled" class="checkbox" disabled title="v1.5.30 起已停用,仅支持手动扫描">
+        <span class="hint">已停用（仅手动触发）</span>
+      </div>
+
+      <div class="form-row">
+        <label for="keywords">搜索关键词 <span class="hint">(空格分隔多个,每个单独跑一轮)</span></label>
+        <input type="text" id="keywords" class="input" placeholder="例如:运营 行政 客服 Java 会计">
+      </div>
+
+      <div class="form-row">
+        <label for="city">城市 <span class="hint">(填城市名即可,自动匹配城市码)</span></label>
+        <input type="text" id="city" class="input" list="cityList" placeholder="如 南宁 / 广州 / 深圳" autocomplete="off">
+        <datalist id="cityList">
+          <option value="南宁">南宁 (101300100)</option>
+          <option value="长沙">长沙 (101270100)</option>
+          <option value="广州">广州 (101280100)</option>
+          <option value="深圳">深圳 (101280600)</option>
+          <option value="北京">北京 (100010000)</option>
+          <option value="上海">上海 (101020100)</option>
+          <option value="杭州">杭州 (101210100)</option>
+          <option value="武汉">武汉 (101200100)</option>
+          <option value="成都">成都 (101110100)</option>
+          <option value="南京">南京 (101190100)</option>
+          <option value="佛山">佛山 (101280700)</option>
+          <option value="苏州">苏州 (101230100)</option>
+          <option value="重庆">重庆 (101040100)</option>
+          <option value="西安">西安 (101110200)</option>
+          <option value="桂林">桂林 (101300200)</option>
+          <option value="柳州">柳州 (101300300)</option>
+        </datalist>
+        <span id="cityResolved" class="hint">请输入城市(如 南宁)</span>
+      </div>
+
+      <div class="form-row">
+        <label for="intervalMin">扫描周期(分钟)</label>
+        <input type="number" id="intervalMin" class="input input-sm" min="5" step="5" value="60">
+        <span class="hint">最小 5 分钟</span>
+      </div>
+
+      <div class="form-row">
+        <label for="maxJobsPerRun">本次最多采集岗位数</label>
+        <input type="number" id="maxJobsPerRun" class="input input-sm" min="0" step="1" value="0">
+        <span class="hint">0 = 不限制(扫满为止);填数字则采集到该数量即停止</span>
+      </div>
+
+      <div class="form-row">
+        <label for="enrichDetails">自动补全详情</label>
+        <input type="checkbox" id="enrichDetails" class="checkbox">
+        <span class="hint">开后台标签页补全 JD/要求(更全,但开多个 tab)</span>
+      </div>
+
+      <div class="form-row">
+        <label for="autoAnalyze">自动 AI 分析</label>
+        <input type="checkbox" id="autoAnalyze" class="checkbox">
+      </div>
+
+      <div class="form-row">
+        <label for="analyzePerDay">每日分析上限</label>
+        <input type="number" id="analyzePerDay" class="input input-sm" min="0" step="5" value="30">
+        <span class="hint">控制 API 额度,0 = 不限制</span>
+      </div>
+
+      <div class="form-actions">
+        <button id="btnSave" class="btn btn-primary">保存设置</button>
+        <button id="btnRunNow" class="btn btn-secondary">立即扫描一轮</button>
+        <span id="saveResult" class="test-result"></span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">运行状态</h2>
+      <div id="statusBox" class="status-box">加载中…</div>
+      <p class="card-hint">⚠️ 全自动扫描会定时打开 BOSS直聘 页面。若 BOSS 弹出安全验证/滑块,本次扫描会跳过并提示。建议先点"立即扫描一轮"验证配置正确,再开启定时。</p>
+      <div class="form-row" style="margin-top:12px">
+        <label>删除记录</label>
+        <button id="btnResetTomb" class="btn btn-outline btn-sm">清空删除记录</button>
+        <span class="hint">已删除/清空的岗位会被记住,扫描不再收录。点此可重置,让它们重新可被扫描到。</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="../lib/config.js"></script>
+  <script src="../lib/autoscan.js"></script>
+  <script src="../lib/storage.js"></script>
+  <script src="autoscan.js"></script>
+</body>
+</html>
