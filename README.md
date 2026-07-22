@@ -4,20 +4,6 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="license"></a>
 </p>
 
-## 🌐 English Summary
-
-**Job Hunter** is a Chrome/Edge MV3 browser extension that turns "scrolling job boards" into "systematic job hunting".
-
-- **Local-first, zero privacy leak** — all your job data stays in your browser's local storage. Nothing is uploaded or collected.
-- **Tianyancha direct risk check** — query business anomalies, legal risks, and social insurance headcount *inside the extension*, before you apply.
-- **Cross-industry AI fit analysis** — evaluates both your fit feasibility and the role's risk index, not tied to any single industry.
-- **Resume parser & auto form-fill** — upload PDF/Word/TXT, get a structured profile, and auto-fill application forms in one click.
-- **Background auto-scan & MCP Bridge** — schedule auto-scanning on BOSS Zhipin, and let AI assistants (Trae / WorkBuddy) filter and tag for you via MCP.
-
-> Keywords: chrome extension job tracker, resume parser browser extension, local-first job search tool, tianyancha risk check, auto fill job application form, cross-industry AI fit analysis, privacy-safe recruitment assistant.
-
----
-
 <h2 align="center">黑暗无论多么长，光明迟早总是会来的</h2>
 
 <p align="center">
@@ -62,6 +48,21 @@
 - **AI 助手联动**：通过 MCP Bridge，Trae / WorkBuddy 等 AI 助手可直接帮你筛选、标记、扫描。
 
 **所有数据只存浏览器本地，不上传、不收集，隐私零泄露。**
+
+<details>
+<summary>🌐 English version / 英文版介绍</summary>
+
+**Job Hunter** is a Chrome/Edge MV3 browser extension that turns "scrolling job boards" into "systematic job hunting".
+
+- **Local-first, zero privacy leak** — all your job data stays in your browser's local storage. Nothing is uploaded or collected.
+- **Tianyancha direct risk check** — query business anomalies, legal risks, and social insurance headcount *inside the extension*, before you apply.
+- **Cross-industry AI fit analysis** — evaluates both your fit feasibility and the role's risk index, not tied to any single industry.
+- **Resume parser & auto form-fill** — upload PDF/Word/TXT, get a structured profile, and auto-fill application forms in one click.
+- **Background auto-scan & MCP Bridge** — schedule auto-scanning on BOSS Zhipin, and let AI assistants (Trae / WorkBuddy) filter and tag for you via MCP.
+
+> Keywords: chrome extension job tracker, resume parser browser extension, local-first job search tool, tianyancha risk check, auto fill job application form, cross-industry AI fit analysis, privacy-safe recruitment assistant.
+
+</details>
 
 ---
 
