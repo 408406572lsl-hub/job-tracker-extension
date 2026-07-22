@@ -1,0 +1,68 @@
+{
+  "env": {
+    "browser": true,
+    "es2022": true,
+    "webextensions": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "script"
+  },
+  "globals": {
+    "JT_CONFIG": "readonly",
+    "JT_STATUS": "readonly",
+    "JT_STATUS_LABELS": "readonly",
+    "JT_Utils": "readonly",
+    "JTFilters": "readonly",
+    "JTParser": "readonly",
+    "JTStorage": "readonly",
+    "JTUi": "readonly",
+    "JTFormFiller": "readonly",
+    "JTPrompts": "readonly",
+    "JTResumeParser": "readonly",
+    "JTAutoScan": "readonly",
+    "JTScanController": "readonly",
+    "JTAnalyzeHelper": "readonly",
+    "JTMcpConnector": "readonly",
+    "JTTyc": "readonly",
+    "JTChatHelper": "readonly",
+    "analyzeJob": "readonly",
+    "wakeFrontendToScan": "readonly",
+    "getAutoScanStatus": "readonly",
+    "handleReply": "readonly",
+    "handleSmartReply": "readonly",
+    "chrome": "readonly",
+    "importScripts": "readonly",
+    "pdfjsLib": "readonly",
+    "mammoth": "readonly",
+    "module": "writable",
+    "globalThis": "readonly",
+    "global": "readonly",
+    "self": "readonly"
+  },
+  "rules": {
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "no-undef": "error",
+    "no-redeclare": ["error", { "builtinGlobals": false }],
+    "no-dupe-keys": "error",
+    "no-dupe-args": "error",
+    "no-unreachable": "warn",
+    "no-console": "off",
+    "no-extra-semi": "warn",
+    "no-trailing-spaces": "off",
+    "semi": ["warn", "always"],
+    "quotes": ["warn", "single", { "avoidEscape": true }],
+    "indent": "off",
+    "eqeqeq": ["warn", "smart"],
+    "no-var": "warn",
+    "prefer-const": "warn",
+    "no-eval": "warn",
+    "no-async-promise-executor": "warn",
+    "no-fallthrough": "warn"
+  },
+  "ignorePatterns": [
+    "node_modules/",
+    "lib/vendor/",
+    "tests/"
+  ]
+}
