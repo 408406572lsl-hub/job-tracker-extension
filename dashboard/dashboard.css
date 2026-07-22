@@ -1,0 +1,690 @@
+/* ============================================================
+   dashboard.css — 管理面板样式
+   ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, "Microsoft YaHei", "Segoe UI", sans-serif;
+  font-size: 14px;
+  color: #1e293b;
+  background: #f1f5f9;
+}
+
+/* 顶栏 */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 56px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.topbar-left { display: flex; align-items: center; gap: 10px; }
+.logo-icon { font-size: 24px; }
+.topbar h1 { font-size: 18px; font-weight: 700; }
+
+.topbar-right { display: flex; gap: 8px; }
+
+/* 统计栏 */
+.stats-bar {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+}
+
+.stat-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 20px;
+  background: #f8fafc;
+  border-radius: 10px;
+  min-width: 80px;
+}
+
+.stat-pill-num { font-size: 24px; font-weight: 700; color: #2563eb; }
+.stat-pill-num.green { color: #16a34a; }
+.stat-pill-num.green2 { color: #059669; }
+.stat-pill-num.orange { color: #ea580c; }
+.stat-pill-num.blue { color: #2563eb; }
+.stat-pill-num.purple { color: #7c3aed; }
+.stat-pill-label { font-size: 12px; color: #64748b; margin-top: 2px; }
+
+/* 主布局 */
+.layout {
+  display: flex;
+  gap: 16px;
+  padding: 16px 24px;
+  min-height: calc(100vh - 120px);
+}
+
+/* 筛选面板 */
+.filter-panel {
+  width: 300px;
+  flex-shrink: 0;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  height: fit-content;
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+}
+
+.panel-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: #0f172a; }
+.panel-subtitle { font-size: 13px; font-weight: 600; margin-bottom: 10px; color: #475569; }
+
+.filter-group { margin-bottom: 14px; }
+.filter-group label { display: block; font-size: 12px; color: #64748b; margin-bottom: 5px; font-weight: 500; }
+
+.filter-group input[type="text"],
+.filter-group input[type="number"],
+.filter-group textarea,
+.select {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #1e293b;
+  background: #fff;
+  transition: border-color 0.15s;
+}
+
+.filter-group input:focus,
+.filter-group textarea:focus,
+.select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.filter-group textarea { resize: vertical; min-height: 36px; }
+
+.range-inputs { display: flex; align-items: center; gap: 8px; }
+.range-inputs input { flex: 1; }
+
+.checkbox-label {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px !important;
+  color: #334155 !important;
+  margin-bottom: 6px !important;
+}
+.checkbox-label input { width: auto !important; }
+
+.slider {
+  width: 100%;
+  -webkit-appearance: none;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  outline: none;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  background: #2563eb;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.filter-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+.divider { border: none; border-top: 1px solid #e2e8f0; margin: 16px 0; }
+
+/* 岗位列表面板 */
+.job-list-panel {
+  flex: 1;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.list-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.toolbar-right { display: flex; align-items: center; gap: 8px; }
+.result-count { font-size: 13px; color: #64748b; }
+
+.job-list {
+  padding: 8px;
+  max-height: calc(100vh - 220px);
+  overflow-y: auto;
+}
+
+/* 岗位卡片 */
+.job-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: #fff;
+}
+
+.job-card:hover { border-color: #93c5fd; box-shadow: 0 2px 8px rgba(37,99,235,0.1); }
+.job-card.selected { background: #eff6ff; border-color: #2563eb; }
+
+.job-card-left { flex-shrink: 0; padding-top: 2px; }
+.job-card-checkbox { width: 18px; height: 18px; cursor: pointer; }
+
+.job-card-main { flex: 1; min-width: 0; }
+
+.job-card-title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.job-card-title { font-size: 15px; font-weight: 600; color: #0f172a; }
+.job-card-title a { color: #0f172a; text-decoration: none; }
+.job-card-title a:hover { color: #2563eb; }
+
+.job-card-meta { display: flex; gap: 16px; font-size: 12px; color: #64748b; margin-bottom: 4px; flex-wrap: wrap; }
+.job-card-salary { color: #dc2626; font-weight: 600; }
+
+.job-card-reasons { font-size: 11px; color: #94a3b8; line-height: 1.5; }
+
+.job-card-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+
+.score-tag {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+}
+.score-tag-high { background: #16a34a; }
+.score-tag-medium { background: #d97706; }
+.score-tag-low { background: #dc2626; }
+
+/* AI 综合评分标记(贴在分数标签前,区分规则分) */
+.score-src {
+  display: inline-block;
+  margin-right: 4px;
+  padding: 0 5px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  background: #2563eb;
+  color: #fff;
+  vertical-align: 1px;
+}
+.score-source-label {
+  margin-left: 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.status-tag {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.status-unseen { background: #e2e8f0; color: #475569; }
+.status-interested { background: #dbeafe; color: #2563eb; }
+.status-applied { background: #e0e7ff; color: #4338ca; }
+.status-interview { background: #ede9fe; color: #7c3aed; }
+.status-rejected { background: #fee2e2; color: #dc2626; }
+.status-offer { background: #dcfce7; color: #16a34a; }
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #94a3b8;
+}
+.empty-icon { font-size: 48px; margin-bottom: 12px; }
+.empty-hint { font-size: 12px; margin-top: 8px; }
+
+/* 按钮 */
+.btn {
+  padding: 7px 14px;
+  border: none;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-primary { background: #2563eb; color: #fff; }
+.btn-primary:hover { background: #1d4ed8; }
+
+.btn-outline { background: transparent; color: #475569; border: 1px solid #cbd5e1; }
+.btn-outline:hover { background: #f1f5f9; border-color: #94a3b8; }
+
+.btn-danger-outline { background: transparent; color: #dc2626; border: 1px solid #fecaca; }
+.btn-danger-outline:hover { background: #fef2f2; }
+
+.btn-sm { padding: 5px 10px; font-size: 12px; }
+.btn-block { width: 100%; justify-content: center; }
+
+/* 弹窗 */
+.modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); }
+.modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: 14px;
+  width: 90%;
+  max-width: 720px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+.modal-header h3 { font-size: 17px; font-weight: 700; }
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #94a3b8;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+.modal-close:hover { color: #475569; }
+
+.modal-body { padding: 20px; overflow-y: auto; flex: 1; }
+
+.modal-field { margin-bottom: 16px; }
+.modal-field-label { font-size: 12px; color: #94a3b8; font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
+.modal-field-value { font-size: 14px; color: #1e293b; line-height: 1.6; }
+.modal-field-desc { font-size: 13px; color: #475569; line-height: 1.8; white-space: pre-wrap; }
+
+.modal-reasons {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.8;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-top: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+}
+.modal-status-label { font-size: 13px; color: #64748b; }
+.modal-notes-input { flex: 1; min-width: 140px; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 7px; font-size: 13px; }
+
+@media (max-width: 900px) {
+  .layout { flex-direction: column; }
+  .filter-panel { width: 100%; position: static; max-height: none; }
+  .hr-layout { flex-direction: column; }
+}
+
+/* ===== 标签栏 ===== */
+.tabs {
+  display: flex;
+  gap: 4px;
+  padding: 0 24px;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+}
+.tab {
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.tab:hover { color: #2563eb; }
+.tab.active { color: #2563eb; border-bottom-color: #2563eb; }
+
+/* ===== HR 回复助手 ===== */
+.hr-layout {
+  display: flex;
+  gap: 16px;
+  padding: 16px 24px;
+}
+.hr-input-panel, .hr-output-panel {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.hr-input-panel { width: 420px; flex-shrink: 0; }
+.hr-output-panel { flex: 1; min-width: 0; }
+
+.card-hint { font-size: 12px; color: #64748b; margin-bottom: 16px; line-height: 1.6; }
+
+.intent-group { display: flex; flex-wrap: wrap; gap: 6px; }
+.intent-btn {
+  padding: 6px 12px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  border-radius: 16px;
+  font-size: 12px;
+  color: #475569;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.intent-btn:hover { border-color: #93c5fd; }
+.intent-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+
+.reply-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+.reply-card-label { font-size: 11px; font-weight: 700; color: #2563eb; margin-bottom: 6px; text-transform: uppercase; }
+.reply-card-text { font-size: 14px; color: #1e293b; line-height: 1.8; white-space: pre-wrap; }
+.reply-card-actions { margin-top: 10px; display: flex; gap: 8px; }
+
+.hr-loading { text-align: center; color: #64748b; padding: 30px 0; }
+
+/* ===== AI 分析结果(详情弹窗) ===== */
+.ai-modal-result {
+  padding: 0 20px;
+  overflow-y: auto;
+  max-height: 35vh;
+  flex-shrink: 0;
+  border-top: 1px solid #e2e8f0;
+  background: #fff;
+}
+.ai-score-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #e2e8f0; }
+.ai-score-num { font-size: 32px; font-weight: 700; line-height: 1; }
+.ai-score-label { font-size: 12px; color: #64748b; }
+.ai-risk-tag { margin-left: auto; padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+.ai-risk-tag-high { background: #fee2e2; color: #dc2626; }
+.ai-risk-tag-medium { background: #fef3c7; color: #d97706; }
+.ai-risk-tag-low { background: #dcfce7; color: #16a34a; }
+
+/* 双评分维度:硬性匹配度(本地) + AI 综合评估,并列不比较 */
+.ai-dual-score { display: flex; gap: 10px; margin-bottom: 10px; }
+.ai-score-block { flex: 1; border-radius: 8px; padding: 10px 12px; border: 1px solid #e2e8f0; }
+.ai-score-block.hard { background: #f8fafc; }
+.ai-score-block.ai { background: #f5f3ff; border-color: #ddd6fe; }
+.ai-score-cap { font-size: 12px; color: #64748b; font-weight: 600; }
+.ai-score-val { font-size: 28px; font-weight: 700; line-height: 1.1; margin: 2px 0; color: #0f172a; }
+.ai-score-unit { font-size: 13px; font-weight: 500; margin-left: 2px; color: #64748b; }
+.ai-score-desc { font-size: 11px; color: #94a3b8; }
+.ai-result-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+.ai-result-tags > span { display: inline-block; margin: 0; padding: 4px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+.ai-relation-tag { background: #e0f2fe; color: #075985; }
+.ai-recommend-tag { background: #ecfdf5; color: #047857; }
+.ai-career-tag { background: #f1f5f9; color: #475569; }
+.ai-risk-tag.ai-risk-tag-high,
+.ai-risk-tag.ai-risk-tag-medium,
+.ai-risk-tag.ai-risk-tag-low,
+.ai-risk-tag.ai-risk-tag-info { display: inline-block; margin: 0; }
+.ai-risk-tag-info { background: #f1f5f9; color: #64748b; }
+.ai-gap-hint { background: #fff7ed; border: 1px solid #fed7aa; color: #9a3412; border-radius: 6px; padding: 8px 10px; font-size: 12px; margin: 8px 0; line-height: 1.5; }
+.ai-relation-summary { background: #f8fafc; border-left: 3px solid #0ea5e9; border-radius: 6px; padding: 9px 10px; color: #334155; font-size: 13px; line-height: 1.6; margin: 8px 0; }
+.ai-no-risk { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 8px 10px; color: #166534; font-size: 12px; line-height: 1.5; margin-top: 8px; }
+.ai-reanalyze { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+.ai-cache-hint { font-size: 12px; color: #94a3b8; }
+
+.ai-sub-title { font-size: 12px; font-weight: 700; color: #475569; margin: 10px 0 4px; }
+.ai-list { margin: 0; padding-left: 18px; color: #475569; font-size: 13px; line-height: 1.7; }
+.ai-risk-item { background: #fef2f2; border-left: 3px solid #dc2626; padding: 8px 10px; border-radius: 4px; margin-bottom: 6px; font-size: 13px; }
+.ai-risk-item.medium { background: #fffbeb; border-left-color: #d97706; }
+.ai-risk-item.low { background: #f0fdf4; border-left-color: #16a34a; }
+.ai-risk-item.info { background: #f8fafc; border-left-color: #94a3b8; }
+.ai-risk-type { font-weight: 600; color: #1e293b; }
+.ai-risk-detail { color: #64748b; }
+.ai-risk-advice { color: #16a34a; }
+.ai-summary { background: #eff6ff; border-radius: 6px; padding: 8px 10px; font-size: 13px; color: #1e40af; margin-top: 10px; }
+.ai-error { background: #fef2f2; color: #dc2626; padding: 10px 12px; border-radius: 6px; font-size: 13px; }
+.ai-error a { color: #2563eb; }
+.ai-raw-details { margin-top: 8px; font-size: 12px; color: #64748b; }
+.ai-raw-details summary { cursor: pointer; color: #2563eb; user-select: none; }
+.ai-raw-pre {
+  margin-top: 6px; padding: 10px; background: #f1f5f9; border-radius: 4px;
+  font-size: 11px; line-height: 1.5; color: #475569;
+  white-space: pre-wrap; word-break: break-all; max-height: 300px; overflow-y: auto;
+}
+
+/* 简历档案面板 */
+.resume-layout {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.resume-profile-panel, .resume-recommend-panel {
+  flex: 1;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+.profile-item {
+  display: flex;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px dashed #e2e8f0;
+}
+.profile-item-label {
+  font-size: 12px;
+  color: #94a3b8;
+  min-width: 70px;
+  font-weight: 600;
+}
+.profile-item-value {
+  font-size: 14px;
+  color: #1e293b;
+  flex: 1;
+}
+.profile-summary {
+  background: #eff6ff;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #1e40af;
+  margin-top: 8px;
+  line-height: 1.6;
+}
+.profile-edit-link {
+  margin-top: 8px;
+  text-align: right;
+}
+.link { color: #2563eb; text-decoration: none; }
+.link:hover { text-decoration: underline; }
+
+.recommend-list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.recommend-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.recommend-card:hover { background: #eff6ff; }
+.recommend-title { font-size: 14px; font-weight: 600; color: #0f172a; }
+.recommend-meta { font-size: 12px; color: #64748b; margin-top: 2px; }
+.recommend-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+/* 自动扫描状态条 */
+.autoscan-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 16px 0;
+  padding: 10px 16px;
+  background: #eef6ff;
+  border: 1px solid #cfe3ff;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #1e3a5f;
+}
+.autoscan-bar .as-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: #94a3b8; flex: 0 0 auto;
+}
+.autoscan-bar .as-dot.on { background: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,.18); }
+.autoscan-bar .as-dot.off { background: #94a3b8; }
+.autoscan-bar .as-text { flex: 1; }
+.autoscan-bar .as-text b { color: #0f172a; }
+
+/* 扫描进度面板 */
+.scan-progress-panel {
+  margin: 0 0 12px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+  border: 1px solid #d1fae5;
+  border-radius: 10px;
+}
+.scan-progress-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.scan-progress-icon { font-size: 18px; }
+.scan-progress-title { font-weight: 600; color: #065f46; font-size: 14px; }
+.scan-progress-bar-wrap {
+  width: 100%;
+  height: 6px;
+  background: #d1fae5;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.scan-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #059669, #10b981);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+.scan-progress-detail { font-size: 12px; color: #047857; }
+
+/* —— 公司风险卡(天眼AI enrichment) —— */
+.cr-card {
+  margin: 10px 0 4px;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 12px;
+}
+.cr-title {
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cr-src {
+  font-size: 10px;
+  font-weight: 400;
+  color: #94a3b8;
+  background: #eef2f7;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.cr-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 12px;
+}
+.cr-item { display: flex; flex-direction: column; }
+.cr-k { color: #94a3b8; font-size: 10px; }
+.cr-v { color: #1e293b; font-weight: 600; word-break: break-all; }
+.cr-ok { color: #16a34a; }
+.cr-warn { color: #d97706; }
+.cr-bad { color: #dc2626; }
+.cr-unknown { color: #64748b; }
+.cr-alert {
+  margin-top: 8px;
+  padding: 6px 8px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  color: #b91c1c;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.cr-note {
+  margin-top: 6px;
+  color: #64748b;
+  font-size: 11px;
+  word-break: break-all;
+}
+
+/* 企业信息状态徽标(三态可见) */
+.cr-badge {
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.5;
+  word-break: break-all;
+}
+.cr-ok {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+}
+.cr-info {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+}
+.cr-warn {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
