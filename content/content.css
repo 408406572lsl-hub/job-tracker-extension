@@ -1,0 +1,417 @@
+/* ============================================================
+   content.css — 列表页徽章 & 提示样式
+   ============================================================ */
+
+/* 匹配徽章 */
+.jt-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 99998;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 4px 6px;
+  border-radius: 8px;
+  font-family: -apple-system, "Microsoft YaHei", sans-serif;
+  font-size: 11px;
+  line-height: 1.3;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  user-select: none;
+}
+
+.jt-badge:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.jt-badge-score {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.jt-badge-label {
+  font-size: 10px;
+  opacity: 0.9;
+}
+
+/* 高匹配 - 绿色 */
+.jt-badge-high {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+/* 中匹配 - 黄色 */
+.jt-badge-medium {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+/* 低匹配 - 红色 */
+.jt-badge-low {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+/* 高匹配卡片高亮边框 */
+.jt-highlight-high {
+  outline: 2px solid #22c55e !important;
+  outline-offset: -2px;
+  background-color: rgba(34, 197, 94, 0.05) !important;
+}
+
+/* 浮动提示 toast */
+.jt-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99999;
+  max-width: 340px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-family: -apple-system, "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.jt-toast-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.jt-toast-success {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.jt-toast-info {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.jt-toast-warn {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+/* 自动填表浮动按钮 */
+#jt-fill-btn {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+  font-family: -apple-system, "Microsoft YaHei", sans-serif;
+}
+
+#jt-fill-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+}
+
+#jt-fill-btn:active {
+  transform: scale(0.95);
+}
+
+.jt-fill-btn-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.jt-fill-btn-text {
+  font-size: 9px;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+/* 浮动扫描按钮(BOSS 列表页) */
+.jt-scan-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #059669, #047857);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+  font-family: -apple-system, "Microsoft YaHei", sans-serif;
+}
+
+.jt-scan-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.5);
+}
+
+.jt-scan-fab:active {
+  transform: scale(0.95);
+}
+
+.jt-scan-fab:disabled {
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+.jt-scan-fab-active {
+  animation: jt-scan-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes jt-scan-pulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(5, 150, 105, 0.4); }
+  50% { box-shadow: 0 4px 24px rgba(5, 150, 105, 0.7); }
+}
+
+.jt-scan-fab-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.jt-scan-fab-text {
+  font-size: 10px;
+  margin-top: 2px;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+/* AI 半自动回复按钮(BOSS 聊天页) */
+.jt-chat-reply-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 90px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+  font-family: -apple-system, "Microsoft YaHei", sans-serif;
+}
+
+.jt-chat-reply-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+}
+
+.jt-chat-reply-fab:active {
+  transform: scale(0.95);
+}
+
+.jt-chat-reply-fab:disabled {
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+.jt-chat-reply-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.jt-chat-reply-text {
+  font-size: 10px;
+  margin-top: 2px;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+/* 回复选项面板 */
+.jt-reply-panel {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  z-index: 100000;
+  width: 420px;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  font-family: -apple-system, "Microsoft YaHei", sans-serif;
+  overflow: hidden;
+}
+
+.jt-reply-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.jt-reply-panel-close {
+  cursor: pointer;
+  font-size: 16px;
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+
+.jt-reply-panel-close:hover {
+  opacity: 1;
+}
+
+.jt-reply-panel-ctx {
+  padding: 8px 16px;
+  font-size: 12px;
+  color: #6b7280;
+  background: #f9fafb;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.jt-reply-panel-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.jt-reply-version {
+  margin-bottom: 8px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  transition: border-color 0.15s;
+}
+
+.jt-reply-version:hover {
+  border-color: #c4b5fd;
+}
+
+.jt-reply-version-recommended {
+  border-color: #7c3aed;
+  background: #faf5ff;
+}
+
+.jt-reply-version-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #7c3aed;
+  margin-bottom: 6px;
+}
+
+.jt-reply-version-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #1f2937;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-bottom: 8px;
+}
+
+.jt-reply-version-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.jt-reply-btn-fill,
+.jt-reply-btn-copy {
+  padding: 5px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: inherit;
+}
+
+.jt-reply-btn-fill {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.jt-reply-btn-fill:hover {
+  background: #6d28d9;
+}
+
+.jt-reply-btn-fill:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.jt-reply-btn-copy {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.jt-reply-btn-copy:hover {
+  background: #e5e7eb;
+}
+
+/* 聊天页调试按钮 */
+.jt-chat-debug-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 170px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+  font-family: -apple-system, "Microsoft YaHei", sans-serif;
+}
+
+.jt-chat-debug-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(107, 114, 128, 0.5);
+}
+
+.jt-chat-debug-fab:active {
+  transform: scale(0.95);
+}
+
+.jt-chat-debug-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.jt-chat-debug-text {
+  font-size: 9px;
+  margin-top: 2px;
+  white-space: nowrap;
+  font-weight: 600;
+}
