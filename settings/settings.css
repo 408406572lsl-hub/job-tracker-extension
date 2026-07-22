@@ -1,0 +1,208 @@
+/* ============================================================
+   settings.css — AI 设置页样式
+   ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, "Microsoft YaHei", "Segoe UI", sans-serif;
+  font-size: 14px;
+  color: #1e293b;
+  background: #f1f5f9;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 24px;
+  height: 56px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.logo-icon { font-size: 24px; }
+.topbar h1 { font-size: 18px; font-weight: 700; flex: 1; }
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.card-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; color: #0f172a; }
+.card-hint { font-size: 12px; color: #64748b; margin-bottom: 16px; line-height: 1.6; }
+
+.form-row { margin-bottom: 16px; position: relative; }
+.form-row label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px; }
+
+.input, .select, .textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #1e293b;
+  background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.input:focus, .select:focus, .textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+}
+.textarea { resize: vertical; line-height: 1.6; }
+
+.required { color: #dc2626; }
+.hint { font-weight: 400; color: #94a3b8; font-size: 12px; }
+
+.toggle-eye {
+  position: absolute;
+  right: 10px;
+  top: 38px;
+  font-size: 12px;
+  color: #2563eb;
+  cursor: pointer;
+  user-select: none;
+}
+
+.form-actions { display: flex; align-items: center; gap: 12px; margin-top: 4px; }
+.test-result { font-size: 13px; }
+.test-result.ok { color: #16a34a; }
+.test-result.err { color: #dc2626; }
+.test-result.loading { color: #64748b; }
+
+.bottom-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 8px;
+}
+.save-result { font-size: 14px; color: #16a34a; font-weight: 600; }
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.btn-primary { background: #2563eb; color: #fff; }
+.btn-primary:hover { background: #1d4ed8; }
+.btn-secondary { background: #e2e8f0; color: #475569; }
+.btn-secondary:hover { background: #cbd5e1; }
+.btn-outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.5); }
+.btn-outline:hover { background: rgba(255,255,255,0.15); }
+.btn-lg { padding: 11px 32px; font-size: 15px; }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-danger { background: #dc2626; color: #fff; }
+.btn-danger:hover { background: #b91c1c; }
+
+/* 数据重置卡片 */
+.danger-card { border: 1px solid #fecaca; background: #fef2f2; }
+.danger-card .card-title { color: #b91c1c; }
+.danger-card .keep-hint { color: #15803d; font-weight: 600; margin-top: 4px; }
+.reset-result { font-size: 13px; }
+.reset-option {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 14px 16px; margin: 12px 0; border: 1px solid #fecaca; border-radius: 12px; background: #fff;
+}
+.reset-option-text { flex: 1; min-width: 0; }
+.reset-option-text strong { display: block; margin-bottom: 4px; color: #991b1b; }
+.reset-option .btn { flex-shrink: 0; white-space: nowrap; }
+
+/* AI 原始响应调试框 */
+.debug-box {
+  margin: 10px 0 4px; padding: 12px 14px; max-height: 360px; overflow: auto;
+  background: #0f172a; color: #e2e8f0; border-radius: 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; line-height: 1.5;
+  white-space: pre-wrap; word-break: break-all;
+}
+
+/* 简历上传区 */
+.upload-area {
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 28px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #f8fafc;
+}
+.upload-area:hover, .upload-area.dragover {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+.upload-icon { font-size: 36px; margin-bottom: 8px; }
+.upload-text { font-size: 14px; color: #475569; font-weight: 600; }
+.upload-hint { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+
+.parse-status {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+.parse-status.loading { background: #eff6ff; color: #2563eb; }
+.parse-status.success { background: #f0fdf4; color: #16a34a; }
+.parse-status.error { background: #fef2f2; color: #dc2626; }
+
+/* 简历档案 */
+.profile-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 16px 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e2e8f0;
+}
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.profile-field { display: flex; flex-direction: column; gap: 4px; }
+.profile-field-full { grid-column: 1 / -1; }
+.profile-field label {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+}
+.profile-field .input, .profile-field .textarea {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+.profile-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.resume-text-details {
+  margin-top: 14px;
+  border-top: 1px dashed #e2e8f0;
+  padding-top: 10px;
+}
+.resume-text-details summary {
+  cursor: pointer;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 0;
+}
+.resume-text-details .textarea {
+  margin-top: 8px;
+}
