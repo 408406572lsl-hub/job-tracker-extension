@@ -1,0 +1,21 @@
+{
+  "name": "job-tracker-mcp-bridge",
+  "version": "1.1.0",
+  "description": "MCP bridge for Job Tracker Chrome extension — exposes job data to AI assistants via Model Context Protocol (WebSocket transport to extension)",
+  "type": "commonjs",
+  "main": "server.js",
+  "bin": {
+    "job-tracker-mcp": "./server.js"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "ws": "^8.21.0",
+    "zod": "^3.23.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
