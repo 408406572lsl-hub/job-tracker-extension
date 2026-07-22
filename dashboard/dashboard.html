@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>岗位猎手 - 管理面板</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="logo-icon">🎯</span>
+      <h1>岗位猎手 · 管理面板</h1>
+    </div>
+    <div class="topbar-right">
+      <button id="btnAutoScan" class="btn btn-outline">🤖 自动扫描</button>
+      <button id="btnBatchAnalyze" class="btn btn-outline">🤖 批量AI分析</button>
+      <button id="btnImport" class="btn btn-outline">📥 导入</button>
+      <input type="file" id="importFileInput" accept=".json,.csv" style="display:none">
+      <button id="btnExportCSV" class="btn btn-outline">导出 CSV</button>
+      <button id="btnExportJSON" class="btn btn-outline">导出 JSON</button>
+      <button id="btnClearAll" class="btn btn-danger-outline">清空全部</button>
+    </div>
+  </header>
+
+  <!-- 自动扫描状态条 -->
+  <section class="autoscan-bar" id="autoscanBar" style="display:none">
+    <span class="as-dot" id="asDot"></span>
+    <span class="as-text" id="asText">加载中…</span>
+    <button id="btnRunScanNow" class="btn btn-sm btn-secondary">立即扫描一轮</button>
+    <button id="btnStopScan" class="btn btn-sm btn-danger-outline" style="display:none">停止扫描</button>
+    <a href="../settings/autoscan.html" class="btn btn-sm btn-outline">设置</a>
+  </section>
+
+  <!-- 扫描进度面板(扫描进行中显示) -->
+  <section class="scan-progress-panel" id="scanProgressPanel" style="display:none">
+    <div class="scan-progress-header">
+      <span class="scan-progress-icon">🤖</span>
+      <span class="scan-progress-title" id="scanProgressTitle">准备扫描…</span>
+    </div>
+    <div class="scan-progress-bar-wrap">
+      <div class="scan-progress-bar" id="scanProgressBar" style="width:0%"></div>
+    </div>
+    <div class="scan-progress-detail" id="scanProgressDetail"></div>
+  </section>
+
+  <!-- 统计概览 -->
+  <section class="stats-bar">
+    <div class="stat-pill"><span class="stat-pill-num" id="sTotal">0</span><span class="stat-pill-label">总记录</span></div>
+    <div class="stat-pill"><span class="stat-pill-num green" id="sHigh">0</span><span class="stat-pill-label">推荐</span></div>
+    <div class="stat-pill"><span class="stat-pill-num orange" id="sMatch">0</span><span class="stat-pill-label">可看</span></div>
+    <div class="stat-pill"><span class="stat-pill-num blue" id="sApplied">0</span><span class="stat-pill-label">已投递</span></div>
+    <div class="stat-pill"><span class="stat-pill-num purple" id="sInterview">0</span><span class="stat-pill-label">面试中</span></div>
+    <div class="stat-pill"><span class="stat-pill-num green2" id="sOffer">0</span><span class="stat-pill-label">录用</span></div>
+  </section>
+
+  <!-- 标签切换 -->
+  <nav class="tabs">
+    <button class="tab active" data-tab="jobs">📋 岗位管理</button>
+    <button class="tab" data-tab="hr">💬 HR 回复助手</button>
+    <button class="tab" data-tab="resume">📄 简历档案</button>
+    <button class="tab" data-tab="settings">⚙ AI 设置</button>
+  </nav>
+
+  <main class="layout" id="tabJobs">
+    <!-- 左侧筛选面板 -->
+    <aside class="filter-panel" id="filterPanel">
+      <h2 class="panel-title">筛选条件</h2>
+
+      <div class="filter-group">
+        <label>包含关键词(逗号分隔,任一命中)</label>
+        <textarea id="fInclude" rows="2" placeholder="康复, 康复治疗, PT, OT"></textarea>
+      </div>
+
+      <div class="filter-group">
+        <label>排除关键词(逗号分隔)</label>
+        <textarea id="fExclude" rows="2" placeholder="销售, 保险"></textarea>
+      </div>
+
+      <div class="filter-group">
+        <label>目标城市(逗号分隔)</label>
+        <input type="text" id="fCities" placeholder="北京, 上海">
+      </div>
+
+      <div class="filter-group">
+        <label>月薪范围(元)</label>
+        <div class="range-inputs">
+          <input type="number" id="fMinSalary" placeholder="最低" min="0">
+          <span>—</span>
+          <input type="number" id="fMaxSalary" placeholder="最高" min="0">
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="fCert"> 排除要求证书的岗位
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="fExp"> 排除要求工作经验的岗位
+        </label>
+      </div>
+
+      <div class="filter-group">
+        <label>最低匹配分:<span id="fMinScoreVal">40</span></label>
+        <input type="range" id="fMinScore" min="0" max="100" value="40" class="slider">
+      </div>
+
+      <div class="filter-actions">
+        <button id="btnApplyFilters" class="btn btn-primary btn-block">应用筛选</button>
+        <button id="btnResetFilters" class="btn btn-outline btn-block">恢复默认</button>
+      </div>
+
+      <hr class="divider">
+
+      <h3 class="panel-subtitle">显示筛选</h3>
+      <div class="filter-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="fOnlyMatched"> 只看匹配岗位
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="fHideRejected"> 隐藏已拒绝
+        </label>
+      </div>
+
+      <div class="filter-group">
+        <label>状态筛选</label>
+        <select id="fStatus" class="select">
+          <option value="">全部状态</option>
+          <option value="unseen">待看</option>
+          <option value="interested">感兴趣</option>
+          <option value="applied">已投递</option>
+          <option value="interview">面试中</option>
+          <option value="rejected">已拒绝</option>
+          <option value="offer">录用</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>搜索</label>
+        <input type="text" id="fSearch" placeholder="标题/公司关键词">
+      </div>
+
+      <hr class="divider">
+
+      <div class="filter-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="settingShowBadges" checked> 列表页显示匹配徽章
+        </label>
+      </div>
+    </aside>
+
+    <!-- 右侧岗位列表 -->
+    <section class="job-list-panel">
+      <div class="list-toolbar">
+        <div class="toolbar-left">
+          <span id="resultCount" class="result-count">共 0 条</span>
+        </div>
+        <div class="toolbar-right">
+          <select id="sortBy" class="select">
+            <option value="score">按匹配分</option>
+            <option value="capturedAt">按记录时间</option>
+            <option value="salaryMax">按薪资</option>
+            <option value="title">按标题</option>
+          </select>
+          <button id="btnSelectAll" class="btn btn-sm btn-outline">全选</button>
+          <button id="btnDeleteSelected" class="btn btn-sm btn-danger-outline">删除选中</button>
+        </div>
+      </div>
+
+      <div id="jobList" class="job-list">
+        <div class="empty-state">
+          <div class="empty-icon">📋</div>
+          <p>还没有记录任何岗位</p>
+          <p class="empty-hint">打开招聘网站岗位详情页,点击插件图标 → "记录此岗位" 手动记录</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- HR 回复助手面板 -->
+  <main class="hr-layout" id="tabHr" style="display:none">
+    <div class="hr-input-panel">
+      <h2 class="panel-title">HR 回复助手</h2>
+      <p class="card-hint">把 HR 发来的消息粘贴到下面,AI 帮你生成得体的回复。基于你在 AI 设置里填的简历和求职意向。</p>
+
+      <div class="filter-group">
+        <label>HR 的消息(复制粘贴进来)</label>
+        <textarea id="hrMessage" class="textarea" rows="6" placeholder="例如:你好,看了你的简历,我们对你的康复治疗背景很感兴趣,想约个时间聊聊,你方便吗?"></textarea>
+      </div>
+
+      <div class="filter-group">
+        <label>我希望这次回复达成</label>
+        <div class="intent-group" id="intentGroup">
+          <button class="intent-btn active" data-intent="other">灵活回复</button>
+          <button class="intent-btn" data-intent="salary">问薪资待遇</button>
+          <button class="intent-btn" data-intent="schedule">约面试时间</button>
+          <button class="intent-btn" data-intent="detail">追问岗位细节</button>
+          <button class="intent-btn" data-intent="thanks">感谢+表意愿</button>
+          <button class="intent-btn" data-intent="decline">委婉拒绝</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>语气</label>
+        <select id="hrStyle" class="select">
+          <option value="formal">正式 · 礼貌专业</option>
+          <option value="active">积极 · 热情主动</option>
+          <option value="concise">简洁 · 直接利落</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>关联岗位(可选,提供上下文)</label>
+        <select id="hrJobContext" class="select">
+          <option value="">不关联</option>
+        </select>
+      </div>
+
+      <button id="btnGenerateReply" class="btn btn-primary btn-block">生成回复</button>
+    </div>
+
+    <div class="hr-output-panel">
+      <h2 class="panel-title">AI 生成的回复</h2>
+      <div id="hrOutput">
+        <div class="empty-state">
+          <div class="empty-icon">💬</div>
+          <p>生成的回复会显示在这里</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 简历档案面板 -->
+  <main class="resume-layout" id="tabResume" style="display:none">
+    <div class="resume-profile-panel">
+      <h2 class="panel-title">简历档案</h2>
+      <div id="resumeProfileDisplay">
+        <div class="empty-state">
+          <div class="empty-icon">📄</div>
+          <p>尚未上传简历</p>
+          <p class="empty-hint">请到 <a href="../settings/settings.html" class="link">AI 设置</a> 上传简历文件,AI 会自动提取结构化档案</p>
+        </div>
+      </div>
+    </div>
+    <div class="resume-recommend-panel">
+      <h2 class="panel-title">智能推荐岗位</h2>
+      <p class="card-hint">根据你的简历档案和匹配分,推荐最适合的岗位</p>
+      <div id="recommendList" class="recommend-list">
+        <div class="empty-state">
+          <div class="empty-icon">🎯</div>
+          <p>上传简历并记录岗位后,这里会显示智能推荐</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 岗位详情弹窗 -->
+  <div id="jobModal" class="modal" style="display:none">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">岗位详情</h3>
+        <button id="modalClose" class="modal-close">&times;</button>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+      <div id="aiModalResult" class="ai-modal-result"></div>
+      <div class="modal-footer">
+        <button id="btnModalAnalyze" class="btn btn-secondary">🤖 AI 分析此岗位</button>
+        <label class="modal-status-label">状态:</label>
+        <select id="modalStatus" class="select">
+          <option value="unseen">待看</option>
+          <option value="interested">感兴趣</option>
+          <option value="applied">已投递</option>
+          <option value="interview">面试中</option>
+          <option value="rejected">已拒绝</option>
+          <option value="offer">录用</option>
+        </select>
+        <input type="text" id="modalNotes" class="modal-notes-input" placeholder="添加备注…">
+        <button id="modalSave" class="btn btn-primary">保存</button>
+        <button id="modalDelete" class="btn btn-danger-outline">删除</button>
+        <a id="modalOpenLink" href="#" target="_blank" class="btn btn-outline">打开原页 ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../lib/config.js"></script>
+  <script src="../lib/filters.js"></script>
+  <script src="../lib/storage.js"></script>
+  <script src="../lib/autoscan.js"></script>
+  <script src="../lib/scan-controller.js"></script>
+  <script src="../lib/analyze-helper.js"></script>
+  <script src="../lib/ui-utils.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
