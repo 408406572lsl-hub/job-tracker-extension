@@ -1,11 +1,7 @@
 <h1 align="center">🎯 岗位猎手 —— 求职记录筛选助手</h1>
 
 <p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/stars-替换为真实值-orange?logo=github" alt="stars"></a>
-  <a href="#"><img src="https://img.shields.io/badge/QQ交流群-点击加入-blue?logo=tencentqq" alt="QQ交流群"></a>
-  <a href="#"><img src="https://img.shields.io/badge/license-MIT-green" alt="license"></a>
-  <a href="#"><img src="https://img.shields.io/badge/issues%20closed-替换为真实值-blue?logo=github" alt="issues closed"></a>
-  <a href="#"><img src="https://img.shields.io/badge/forks-替换为真实值-purple?logo=github" alt="forks"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="license"></a>
 </p>
 
 <h2 align="center">黑暗无论多么长，光明迟早总是会来的</h2>
