@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>岗位猎手 - AI 设置</title>
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <header class="topbar">
+    <span class="logo-icon">🎯</span>
+    <h1>AI 设置</h1>
+    <a href="autoscan.html" class="btn btn-outline">🤖 自动扫描</a>
+    <button id="btnBack" class="btn btn-outline">返回管理面板</button>
+  </header>
+
+  <main class="container">
+    <!-- 大模型接入 -->
+    <section class="card">
+      <h2 class="card-title">大模型接入</h2>
+      <p class="card-hint">插件通过 OpenAI 兼容接口调用大模型。推荐 DeepSeek(注册送免费额度,中文好且便宜)。所有配置仅保存在本地浏览器。</p>
+
+      <div class="form-row">
+        <label for="provider">服务商</label>
+        <select id="provider" class="select"></select>
+      </div>
+
+      <div class="form-row">
+        <label for="apiKey">API Key <span class="required">*</span></label>
+        <input type="password" id="apiKey" class="input" placeholder="sk-...">
+        <span id="toggleKey" class="toggle-eye">显示</span>
+      </div>
+
+      <div class="form-row">
+        <label for="model">模型 <span class="hint">(可直接输入模型名,也可从下列预选)</span></label>
+        <input type="text" id="model" class="input" list="modelList" placeholder="如 deepseek-chat、gpt-4o-mini">
+        <datalist id="modelList"></datalist>
+        <span id="modelHint" class="hint" style="display:none;"></span>
+      </div>
+
+      <div class="form-row">
+        <label for="disableReasoning">关闭思考过程</label>
+        <input type="checkbox" id="disableReasoning" class="checkbox">
+        <span class="hint">推荐给推理/思考模型(如 GLM-5 系列、DeepSeek-R1、QwQ 等):勾选后插件会向网关发送"关闭思维链"指令(OpenRouter 用 reasoning.enabled=false;智谱/混元用 thinking.type=disabled),让模型直接在 content 输出答案(通常为标准 JSON)。<b>对 glm-5.2 等在混元网关把答案塞进 reasoning 的模型,建议务必勾选。</b>插件也会自动从 reasoning 提取 JSON 作为兜底;若仍失败请改用非推理模型如 gpt-4o-mini / deepseek-chat。</span>
+      </div>
+
+      <div class="form-row">
+        <button id="btnShowDebug" class="btn btn-secondary" type="button">查看上次 AI 原始响应(排查用)</button>
+        <span class="hint">若 AI 分析失败,点此查看模型真实返回的字段结构(content / reasoning 等),便于定位答案到底在哪。</span>
+      </div>
+      <pre id="debugBox" class="debug-box" style="display:none"></pre>
+
+      <div class="form-row">
+        <label for="baseUrl">Base URL <span class="hint">(自定义服务商时填写,其余留空用默认)</span></label>
+        <input type="text" id="baseUrl" class="input" placeholder="https://api.example.com/v1">
+      </div>
+
+      <div class="form-actions">
+        <button id="btnSaveInline" class="btn btn-primary">保存配置</button>
+        <button id="btnTest" class="btn btn-secondary">测试连接</button>
+        <span id="saveResultInline" class="save-result"></span>
+        <span id="testResult" class="test-result"></span>
+      </div>
+    </section>
+
+    <!-- 企业分析(天眼查) -->
+    <section class="card">
+      <h2 class="card-title">企业分析（天眼查）</h2>
+      <p class="card-hint">在 AI 深度分析岗位时,自动调用天眼查查询企业工商与风险信息(存续状态、注册资本、参保人数、行业资质、司法风险),结合岗位 JD 一起分析。<strong>Key 由你自行申请并填写,仅存本地浏览器,不进扩展包、不进 git,别人用你的插件也不用你的 Key。</strong></p>
+
+      <div class="form-row">
+        <label for="tycApiKey">天眼查 API Key <span class="required">*</span></label>
+        <input type="password" id="tycApiKey" class="input" placeholder="在天眼查 AI 开放平台申请的 Key">
+        <span id="toggleTycKey" class="toggle-eye">显示</span>
+      </div>
+
+      <div class="form-row">
+        <span class="hint">申请地址:天眼查 AI 开放平台(tianyancha.com/ai)。填入后点「保存 Key」即可生效,AI 深度分析会自动带上企业信息(扩展直连天眼查,无需启动 mcp-bridge)。留空则不查询企业信息(降级为只分析岗位)。Key 仅存于本机浏览器,不进扩展包、不进 git,开源/分享给他人也不会泄露。</span>
+      </div>
+
+      <div class="form-actions">
+        <button id="btnSaveTycKey" class="btn btn-primary">保存 Key</button>
+        <button id="btnTestTyc" class="btn btn-secondary">测试连接</button>
+        <span id="tycSaveResult" class="save-result"></span>
+        <span id="tycTestResult" class="test-result"></span>
+      </div>
+    </section>
+
+    <!-- 简历 -->
+    <section class="card">
+      <h2 class="card-title">我的简历</h2>
+      <p class="card-hint">上传简历文件(PDF/Word)自动解析,或手动粘贴文本。AI 会基于此分析岗位适配度并自动填表。</p>
+
+      <!-- 文件上传区 -->
+      <div class="upload-area" id="uploadArea">
+        <div class="upload-icon">📄</div>
+        <div class="upload-text">点击选择简历文件,或拖拽到此处</div>
+        <div class="upload-hint">支持 PDF / Word(.docx) / TXT</div>
+        <input type="file" id="resumeFile" accept=".pdf,.docx,.doc,.txt" hidden>
+      </div>
+
+      <div id="parseStatus" class="parse-status" style="display:none"></div>
+
+      <!-- AI 分析档案 -->
+      <div id="profileSection" style="display:none">
+        <h3 class="profile-title">AI 提取的简历档案</h3>
+        <div class="profile-grid">
+          <div class="profile-field"><label>姓名</label><input type="text" id="pf_name" class="input"></div>
+          <div class="profile-field"><label>性别</label><input type="text" id="pf_gender" class="input"></div>
+          <div class="profile-field"><label>电话</label><input type="text" id="pf_phone" class="input"></div>
+          <div class="profile-field"><label>邮箱</label><input type="text" id="pf_email" class="input"></div>
+          <div class="profile-field"><label>年龄/出生</label><input type="text" id="pf_age" class="input"></div>
+          <div class="profile-field"><label>最高学历</label><input type="text" id="pf_education" class="input"></div>
+          <div class="profile-field"><label>毕业院校</label><input type="text" id="pf_school" class="input"></div>
+          <div class="profile-field"><label>专业</label><input type="text" id="pf_major" class="input"></div>
+          <div class="profile-field"><label>毕业时间</label><input type="text" id="pf_graduationDate" class="input"></div>
+          <div class="profile-field"><label>期望薪资</label><input type="text" id="pf_expectedSalary" class="input"></div>
+          <div class="profile-field"><label>期望城市</label><input type="text" id="pf_expectedCity" class="input"></div>
+          <div class="profile-field"><label>证书</label><input type="text" id="pf_certifications" class="input"></div>
+          <div class="profile-field profile-field-full"><label>技能</label><input type="text" id="pf_skills" class="input"></div>
+          <div class="profile-field profile-field-full"><label>自我介绍</label><textarea id="pf_selfSummary" class="textarea" rows="3"></textarea></div>
+        </div>
+        <div class="profile-actions">
+          <button id="btnSaveProfile" class="btn btn-primary">保存档案</button>
+          <button id="btnReparseProfile" class="btn btn-secondary">重新分析</button>
+        </div>
+      </div>
+
+      <details class="resume-text-details">
+        <summary>手动编辑简历文本(也可直接粘贴,不用上传文件)</summary>
+        <textarea id="resumeText" class="textarea" rows="12" placeholder="例如:&#10;姓名:小李&#10;学历与专业:电子商务(大专)&#10;经历:负责社群运营、客户沟通和数据整理&#10;技能:Excel、文案、短视频剪辑&#10;证书:暂无&#10;求职意向:示例城市运营、行政或客户支持岗位,接受应届&#10;..."></textarea>
+      </details>
+    </section>
+
+    <!-- 求职意向 -->
+    <section class="card">
+      <h2 class="card-title">求职意向 & 沟通偏好</h2>
+
+      <div class="form-row">
+        <label for="jobIntent">求职意向</label>
+        <input type="text" id="jobIntent" class="input" placeholder="例如:示例城市运营、行政或客户支持岗位,接受应届生和跨专业转岗">
+      </div>
+
+      <div class="form-row">
+        <label for="chatStyle">默认沟通语气(HR 回复用)</label>
+        <select id="chatStyle" class="select">
+          <option value="formal">正式 · 礼貌专业</option>
+          <option value="active">积极 · 热情主动</option>
+          <option value="concise">简洁 · 直接利落</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label for="extraNotes">补充说明 <span class="hint">(可选,如薪资底线、不能接受的条款等)</span></label>
+        <textarea id="extraNotes" class="textarea" rows="3" placeholder="例如:月薪低于 4000 不考虑;不接受单休;希望有培训"></textarea>
+      </div>
+    </section>
+
+    <!-- 数据重置 -->
+    <section class="card danger-card">
+      <h2 class="card-title">数据重置</h2>
+      <p class="card-hint">按需选择重置范围。两项操作都<strong>不会</strong>动你的 API Key。</p>
+
+      <div class="reset-option">
+        <div class="reset-option-text">
+          <strong>① 仅清岗位数据(推荐)</strong>
+          <p class="card-hint">清空:已记录岗位、AI 分析缓存、扫描统计。<br>
+          完整保留:API Key、服务商、模型、Base URL、简历档案、求职意向、沟通偏好、筛选条件。<br>
+          <span class="keep-hint">重置后无需重新配置 AI,直接可分析。</span></p>
+        </div>
+        <button id="btnSoftReset" class="btn btn-warning">🧹 仅清岗位数据</button>
+      </div>
+
+      <div class="reset-option">
+        <div class="reset-option-text">
+          <strong>② 彻底重置</strong>
+          <p class="card-hint">清空:所有岗位、删除记录、筛选、自动扫描配置、AI 服务商/模型设置、简历档案。<br>
+          仅保留:API Key。<br>
+          <span class="keep-hint">回到首次使用状态(需重新选服务商/填模型)。</span></p>
+        </div>
+        <button id="btnReset" class="btn btn-danger">🗑 彻底重置</button>
+      </div>
+
+      <span id="resetResult" class="reset-result"></span>
+    </section>
+
+    <div class="bottom-actions">
+      <button id="btnSave" class="btn btn-primary btn-lg">保存设置</button>
+      <span id="saveResult" class="save-result"></span>
+    </div>
+  </main>
+
+  <script src="../lib/vendor/pdf.min.js"></script>
+  <script src="../lib/vendor/mammoth.browser.min.js"></script>
+  <script src="../lib/config.js"></script>
+  <script src="../lib/autoscan.js"></script>
+  <script src="../lib/storage.js"></script>
+  <script src="../lib/resume-parser.js"></script>
+  <script src="../lib/tianyancha-client.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>
