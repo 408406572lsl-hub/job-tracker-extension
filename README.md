@@ -4,6 +4,20 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="license"></a>
 </p>
 
+## 🌐 English Summary
+
+**Job Hunter** is a Chrome/Edge MV3 browser extension that turns "scrolling job boards" into "systematic job hunting".
+
+- **Local-first, zero privacy leak** — all your job data stays in your browser's local storage. Nothing is uploaded or collected.
+- **Tianyancha direct risk check** — query business anomalies, legal risks, and social insurance headcount *inside the extension*, before you apply.
+- **Cross-industry AI fit analysis** — evaluates both your fit feasibility and the role's risk index, not tied to any single industry.
+- **Resume parser & auto form-fill** — upload PDF/Word/TXT, get a structured profile, and auto-fill application forms in one click.
+- **Background auto-scan & MCP Bridge** — schedule auto-scanning on BOSS Zhipin, and let AI assistants (Trae / WorkBuddy) filter and tag for you via MCP.
+
+> Keywords: chrome extension job tracker, resume parser browser extension, local-first job search tool, tianyancha risk check, auto fill job application form, cross-industry AI fit analysis, privacy-safe recruitment assistant.
+
+---
+
 <h2 align="center">黑暗无论多么长，光明迟早总是会来的</h2>
 
 <p align="center">
@@ -80,6 +94,12 @@ npm test
 - 主仓库：https://github.com/408406572lsl-hub/job-tracker-extension
 - issue 反馈：https://github.com/408406572lsl-hub/job-tracker-extension/issues
 - 作者：408406572lsl-hub（个人开发作品）
+
+---
+
+## 🔑 关键词 / Keywords
+
+本地存储零隐私招聘插件 · 天眼查直连避坑浏览器扩展 · 简历解析自动填表工具 · 跨行业 AI 匹配度与风险分析 · BOSS直聘自动扫描 · MCP 联动 AI 助手筛选 · chrome extension job tracker · resume parser browser extension · local-first job search · tianyancha risk check · auto fill job application · privacy-safe recruitment assistant
 
 ---
 
