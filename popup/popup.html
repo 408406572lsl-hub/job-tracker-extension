@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>岗位猎手</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <span class="logo-icon">🎯</span>
+      <span class="logo-text">岗位猎手</span>
+    </div>
+    <button id="btnAiSettings" class="btn-icon" title="AI 设置">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    </button>
+    <button id="btnDashboard" class="btn-icon" title="打开管理面板">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+        <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- 统计卡片 -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num" id="statTotal">0</div>
+      <div class="stat-label">已记录</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num stat-green" id="statMatch">0</div>
+      <div class="stat-label">匹配</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num stat-orange" id="statUnseen">0</div>
+      <div class="stat-label">待看</div>
+    </div>
+  </div>
+
+  <!-- 当前页岗位预览 -->
+  <div id="pageJobSection" class="section">
+    <div class="section-title">当前页岗位</div>
+    <div id="pageJobPreview" class="page-job-preview">
+      <div class="loading">正在识别页面…</div>
+    </div>
+    <div id="pageJobActions" class="actions" style="display:none">
+      <button id="btnSave" class="btn btn-primary">记录此岗位</button>
+      <button id="btnAnalyze" class="btn btn-secondary">AI 深度分析</button>
+    </div>
+
+    <!-- AI 分析结果 -->
+    <div id="aiResult" class="ai-result" style="display:none"></div>
+  </div>
+
+  <!-- HR 回复助手入口 -->
+  <div class="section">
+    <button id="btnHrReply" class="btn btn-secondary btn-block">💬 HR 回复助手</button>
+  </div>
+
+  <!-- 快捷筛选开关 -->
+  <div class="section">
+    <div class="section-title">快捷筛选</div>
+    <div class="toggle-row">
+      <label class="toggle">
+        <input type="checkbox" id="toggleCert">
+        <span class="toggle-slider"></span>
+        <span class="toggle-text">排除要求证书</span>
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="toggleExp">
+        <span class="toggle-slider"></span>
+        <span class="toggle-text">排除要求经验</span>
+      </label>
+    </div>
+    <button id="btnEditFilters" class="btn btn-secondary btn-block">编辑筛选条件</button>
+  </div>
+
+  <!-- 快捷操作 -->
+  <div class="section">
+    <button id="btnRescan" class="btn btn-secondary btn-block">重新扫描当前列表页</button>
+  </div>
+
+  <div class="footer">
+    <span>本地存储 · 零隐私泄露</span>
+  </div>
+
+  <!-- 调试数据面板(默认折叠) -->
+  <details class="debug-panel" id="debugPanel">
+    <summary>🔍 插件抓取原始数据（调试用）</summary>
+    <div id="debugData" class="debug-data"></div>
+  </details>
+
+  <script src="../lib/config.js"></script>
+  <script src="../lib/filters.js"></script>
+  <script src="../lib/storage.js"></script>
+  <script src="../lib/ui-utils.js"></script>
+  <script src="../lib/parser.js"></script>
+  <script src="../lib/autoscan.js"></script>
+  <script src="../lib/analyze-helper.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
